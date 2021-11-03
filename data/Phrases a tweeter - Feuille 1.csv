@@ -1,0 +1,27 @@
+categorie,possib,part1,part2,compte
+ouva_carte,1,"Selon les données de l'Insee, les actifs DE_LA_VILLE allaient travailler à...
+1⃣ VILLE1 
+2⃣ VILLE2 
+3⃣ VILLE3"," 
+Pour tout comprendre, voici la carte des déplacements professionnels ci-dessous 
+⤵",193
+ouva_carte,2,"Où vont travailler les actifs DE_LA_VILLE ?
+Selon les données de l'Insee, c'est à...
+1⃣ VILLE1 
+2⃣ VILLE2 
+3⃣ VILLE3"," 
+Les autres déplacements sont résumés dans cette carte
+⤵",175
+douvient_carte,1,"Selon les données de l'Insee, les actifs qui travaillent A_LA_VILLE vont travailler à...
+1⃣ VILLE1 
+2⃣ VILLE2 
+3⃣ VILLE3"," 
+Pour tout comprendre, voici la carte des déplacements professionnels ci-dessous 
+⤵",204
+douvient_carte,2,"D'où viennent travailler les actifs DE_LA_VILLE ?
+Selon les données de l'Insee, c'est de...
+1⃣ VILLE1 
+2⃣ VILLE2 
+3⃣ VILLE3"," 
+Les autres déplacements sont résumés dans cette carte
+⤵",180
