@@ -12,6 +12,9 @@ tweetbot_token <- rtweet::create_token(
 )
 
 
+# Example: post a tweet via the API
+# The keys will are in your environment thanks to create_token()
+rtweet::post_tweet(status = "This is a test tweet.")
 Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
  # 
