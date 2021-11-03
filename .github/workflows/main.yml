@@ -11,7 +11,7 @@ jobs:
   autoscrape:
     # The type of runner that the job will run on
     runs-on: macos-latest
-env:
+  env:
       TWITTER_KEY: ${{ secrets.TWITTER_KEY }}
       TWITTER_SECRET_KEY: ${{ secrets.TWITTER_SECRET_KEY }}
       TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
