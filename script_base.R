@@ -109,7 +109,7 @@ OuVaTravaillerLaCommune<-MOBPRO18_S%>%filter(CODGEORES==ComSelec)%>%
   
 
 #Poste Premier Tweet
-    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag), token = tweetbot_token)
+    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag))
     print("ok premier tweet")
     ###########
     #Et le second
@@ -151,6 +151,5 @@ Sys.sleep(3)
 reply_id <- rtweet::get_timeline(user="humeursdevictor")$status_id[1]
 
 rtweet::post_tweet(status=PhATL$part2[1],
-               in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
-                  token=tweetbot_token)
+               in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"))
  print("ok 2eme tweet")
