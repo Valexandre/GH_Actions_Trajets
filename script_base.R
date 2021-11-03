@@ -4,7 +4,7 @@ library(sf)
 library(rtweet)
 
 tweetbot_token <- rtweet::create_token(
-  app = "Les tweets politiques",
+  app = "TweetUnTrajet",
   consumer_key =    Sys.getenv("TWITTER_KEY"),
   consumer_secret = Sys.getenv("TWITTER_SECRET_KEY"),
   access_token =    Sys.getenv("TWITTER_TOKEN"),
