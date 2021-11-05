@@ -27,7 +27,7 @@ jobs:
       env:
         GITHUB_PAT: ${{ secrets.GH_TOKEN }} 
       run: |
-        install.packages(c("tidyverse", "sf"))
+        install.packages(c("tidyverse", "sf","remotes"))
         remotes::install_github("ropensci/rtweet")
       shell: Rscript {0}
 
