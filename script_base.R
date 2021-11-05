@@ -3,16 +3,15 @@ library(tidyverse)
 library(sf)
 library(rtweet)
 
-tweetbot_token <- rtweet::rtweet_bot(
+tweetbot_token <- auth_as(rtweet::rtweet_bot(
   api_key = Sys.getenv("TWITTER_KEY"),
   api_secret = Sys.getenv("TWITTER_SECRET_KEY"),
   access_token =  Sys.getenv("TWITTER_TOKEN"),
   access_secret =  Sys.getenv("TWITTER_TOKEN_SECRET")
- )
-auth_setup_default(tweetbot_token)
+ ))
 # Example: post a tweet via the API
 # The keys will are in your environment thanks to create_token()
-rtweet::post_tweet(status = "This is a test tweet.")
+rtweet::post_tweet(status = "This is a test tweet.",token=tweetbot_token)
 Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
  # 
@@ -107,7 +106,7 @@ OuVaTravaillerLaCommune<-MOBPRO18_S%>%filter(CODGEORES==ComSelec)%>%
   
 
 #Poste Premier Tweet
-    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag))
+    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag),token=tweetbot_token)
     print("ok premier tweet")
     ###########
     #Et le second
@@ -146,8 +145,8 @@ Carte
 invisible(dev.off())
 
 Sys.sleep(3)
-reply_id <- rtweet::get_timeline(user="humeursdevictor")$status_id[1]
+reply_id <- rtweet::get_timeline(user="humeursdevictor",token=tweetbot_token)$status_id[1]
 
 rtweet::post_tweet(status=PhATL$part2[1],
-               in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"))
+               in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),token=tweetbot_token)
  print("ok 2eme tweet")
