@@ -26,7 +26,9 @@ jobs:
       run: |
         R -e 'install.packages("tidyverse")'
         R -e 'install.packages("sf")'
-        R -e 'install.packages("rtweet")'
+        R -e 'install.packages("devtools")'
+        R -e 'devtools::install_github("ropensci/rtweet")'
+
     # Run R script
     - name: script_base
       run: Rscript script_base.R
