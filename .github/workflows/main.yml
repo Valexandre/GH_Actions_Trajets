@@ -27,7 +27,6 @@ jobs:
       run: |
         R -e 'install.packages("tidyverse")'
         R -e 'install.packages("sf")'
-        R -e 'install.packages("remotes")'
         R -e 'remotes::install_github("ropensci/rtweet")'
 
     # Run R script
