@@ -42,5 +42,6 @@ jobs:
         git commit -am "GH ACTION OK $(date)"
         git push origin main
       env:
-        REPO_KEY: ${{secrets.GH_TOKEN}}
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
         username: github-actions
+        GITHUB_PAT: ${{ secrets.GH_TOKEN }} 
