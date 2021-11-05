@@ -13,7 +13,7 @@ tweetbot_token <- rtweet::create_token(
 
 rtweet::rtweet_bot(
   api_key = Sys.getenv("TWITTER_KEY"),
-  api_secret = "API secret",
+  api_secret = Sys.getenv("TWITTER_SECRET_KEY"),
   access_token =  Sys.getenv("TWITTER_TOKEN"),
   access_secret =  Sys.getenv("TWITTER_TOKEN_SECRET")
   )
