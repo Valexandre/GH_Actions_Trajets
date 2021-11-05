@@ -10,9 +10,19 @@ library(rtweet)
 #  access_token =    Sys.getenv("TWITTER_TOKEN"),
 #  access_secret =   Sys.getenv("TWITTER_TOKEN_SECRET")
 #)
+consumer_key <- Sys.getenv("TWITTER_KEY")
+consumer_secret <- Sys.getenv("TWITTER_SECRET_KEY")
+access_token <- Sys.getenv("TWITTER_TOKEN")
+access_secret <- Sys.getenv("TWITTER_TOKEN_SECRET")
 
-auth <- rtweet::rtweet_bot()
-
+create_token(
+app = "TweetUnTrajet",
+consumer_key,
+consumer_secret,
+access_token,
+access_secret,
+set_renv = TRUE
+)
 # Example: post a tweet via the API
 # The keys will are in your environment thanks to create_token()
 rtweet::post_tweet(status = "This is a test tweet.")
