@@ -1,16 +1,21 @@
-library(ragg)
+#library(ragg)
 library(tidyverse)
 library(sf)
 library(rtweet)
 
-tweetbot_token <- rtweet::create_token(
-  app = "TweetUnTrajet",
-  consumer_key =    Sys.getenv("TWITTER_KEY"),
-  consumer_secret = Sys.getenv("TWITTER_SECRET_KEY"),
-  access_token =    Sys.getenv("TWITTER_TOKEN"),
-  access_secret =   Sys.getenv("TWITTER_TOKEN_SECRET")
-)
+#tweetbot_token <- rtweet::create_token(
+#  app = "TweetUnTrajet",
+#  consumer_key =    Sys.getenv("TWITTER_KEY"),
+#  consumer_secret = Sys.getenv("TWITTER_SECRET_KEY"),
+#  access_token =    Sys.getenv("TWITTER_TOKEN"),
+#  access_secret =   Sys.getenv("TWITTER_TOKEN_SECRET")
+#)
 
+rtweet_bot(
+ api_key = Sys.getenv("TWITTER_KEY"),
+  api_secret =  Sys.getenv("TWITTER_SECRET_KEY"),
+  access_token = Sys.getenv("TWITTER_TOKEN"),
+  access_secret = Sys.getenv("TWITTER_TOKEN_SECRET"))
 
 # Example: post a tweet via the API
 # The keys will are in your environment thanks to create_token()
