@@ -8,7 +8,8 @@ tweetbot_token <- rtweet::rtweet_bot(
   api_key = Sys.getenv("TWITTER_KEY"),
   api_secret = Sys.getenv("TWITTER_SECRET_KEY"),
   access_token =  Sys.getenv("TWITTER_TOKEN"),
-  access_secret =  Sys.getenv("TWITTER_TOKEN_SECRET")
+  access_secret =  Sys.getenv("TWITTER_TOKEN_SECRET"),
+  bearer_token =   Sys.getenv("TWITTER_BEARER")
  )
 auth_as(tweetbot_token)
 # Example: post a tweet via the API
