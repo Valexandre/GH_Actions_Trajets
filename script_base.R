@@ -108,7 +108,7 @@ OuVaTravaillerLaCommune<-MOBPRO18_S%>%filter(CODGEORES==ComSelec)%>%
   
 
 #Poste Premier Tweet
-    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag),token=tweetbot_token)
+    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag))
     print("ok premier tweet")
     ###########
     #Et le second
