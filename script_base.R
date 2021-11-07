@@ -5,10 +5,10 @@ library(rtweet)
 
 
 tweetbot_token <- rtweet::rtweet_bot(
-  api_key = Sys.getenv("TWITTER_KEY"),
-  api_secret = Sys.getenv("TWITTER_SECRET_KEY"),
-  access_token =  Sys.getenv("TWITTER_TOKEN"),
-  access_secret =  Sys.getenv("TWITTER_TOKEN_SECRET")
+  api_key = Sys.getenv("T_API_KEY"),
+  api_secret = Sys.getenv("T_API_SECRET"),
+  access_token =  Sys.getenv("T_ACCESS_TOKEN"),
+  access_secret =  Sys.getenv("T_ACCESS_SECRET")
  )
 rtweet::auth_as(tweetbot_token)
 
