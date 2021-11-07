@@ -121,20 +121,20 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
   geom_sf_text(data=CarteComm%>%filter(code%in%JusteCommunesImportantes$INSEE_COM)%>%
                  filter(code%in%Inter_V_Donnees$code)%>%
                  group_by(substr(code,1,2))%>%
-                 slice_sample(.,n=2),aes(label=nom),check_overlap = T,size=6,
+                 slice_sample(.,n=2),aes(label=nom),check_overlap = T,size=3,
                 family = "Calibri")+theme_void()+
   geom_sf(data=UnionsCommunesDep,fill=NA,colour="#22222280")+
-  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=12,alpha=0.8,family="Calibri")+
+  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6,alpha=0.8,family="Calibri")+
   scale_fill_manual("",values=couleurs)+
   scale_colour_manual("",values=c("#22222230","#222222"))+
   theme(legend.position="top",
-        plot.title =element_text(hjust=0,family = "Garamond",size=28),
+        plot.title =element_text(hjust=0,family = "Garamond",size=14),
         plot.title.position =  "plot",
         plot.caption.position =   "plot",
-        plot.subtitle = element_text(hjust=0,family = "Garamond",size=20),
-        plot.caption = element_text(hjust=1,family = "Garamond",size=16),
-        text=element_text(size=28,family = "Garamond"),
-        legend.text = element_text(size=20),
+        plot.subtitle = element_text(hjust=0,family = "Garamond",size=10),
+        plot.caption = element_text(hjust=1,family = "Garamond",size=8),
+        text=element_text(size=14,family = "Garamond"),
+        legend.text = element_text(size=10),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=1,byrow=TRUE),colour=F)+
   labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
