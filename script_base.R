@@ -28,7 +28,7 @@ Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
  PhAT <- read_csv("data/Phrases a tweeter - Feuille 1.csv")
   JusteCommunesImportantes<-readRDS("data/VillesSelec.Rdata")
   
- 
+ #remet à our
  # MOBPRO18_S_F<-MOBPRO18_S%>%filter(CODGEORES%in%JusteCommunesImportantes$INSEE_COM |
  #                                     DCLT %in% JusteCommunesImportantes$INSEE_COM)
  # 
