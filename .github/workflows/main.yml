@@ -12,10 +12,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: macos-latest
     env:
-      TWITTER_KEY: ${{ secrets.TWITTER_KEY }}
-      TWITTER_SECRET_KEY: ${{ secrets.TWITTER_SECRET_KEY }}
-      TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
-      TWITTER_TOKEN_SECRET: ${{ secrets.TWITTER_TOKEN_SECRET }}
+      TWITTER_KEY: ${{ secrets.TWITBOT.TWITTER_KEY }}
+      TWITTER_SECRET_KEY: ${{ secrets.TWITBOT.TWITTER_SECRET_KEY }}
+      TWITTER_TOKEN: ${{ secrets.TWITBOT.TWITTER_TOKEN }}
+      TWITTER_TOKEN_SECRET: ${{ secrets.TWITBOT.TWITTER_TOKEN_SECRET }}
       TWITTER_BEARER_TOKEN: ${{ secrets.BEARER }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }} 
     # Load repo and install R
