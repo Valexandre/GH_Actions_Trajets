@@ -1,4 +1,4 @@
-#library(ragg)
+library(ragg)
 library(tidyverse)
 library(sf)
 library(rtweet)
@@ -11,8 +11,6 @@ tweetbot_token <- rtweet::rtweet_bot(
   access_secret =  Sys.getenv("T_ACCESS_SECRET")
  )
 rtweet::auth_as(tweetbot_token)
-
-rtweet::post_tweet(status = "This is a test tweet.")
 Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
  # 
