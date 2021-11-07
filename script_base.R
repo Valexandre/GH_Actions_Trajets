@@ -146,7 +146,7 @@ Carte
 invisible(dev.off())
 
 Sys.sleep(3)
-reply_id <- rtweet::get_my_timeline(n = 1)$status_id[1]
+reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id
 
 rtweet::post_tweet(status=PhATL$part2[1],
                in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"))
