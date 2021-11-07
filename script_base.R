@@ -140,16 +140,13 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
   labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
        subtitle="Part des actifs se rendant au travail dans une commune à moins de 20 km",
        caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
-jpeg(filename = paste0("CarteActifs",nomcomm$nom[1],".jpg"), width=900, height = 900, quality=100, units = "px",type="cairo")
-Carte
-dev.off()
 
 agg_png(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"), width=900, height = 900, res = 144)
 Carte
 invisible(dev.off())
 
 Sys.sleep(3)
-reply_id <- rtweet::get_timeline(user="humeursdevictor")$status_id[1]
+reply_id <- rtweet::get_my_timeline(n = 1)$status_id[1]
 
 rtweet::post_tweet(status=PhATL$part2[1],
                in_reply_to_status_id = reply_id,media = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"))
