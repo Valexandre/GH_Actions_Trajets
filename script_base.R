@@ -13,34 +13,14 @@ tweetbot_token <- rtweet::rtweet_bot(
 rtweet::auth_as(tweetbot_token)
 Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
- # 
- # MOBPRO18<- read_delim("data/FD_MOBPRO_2018.csv", ";", escape_double = FALSE, col_types = cols(DCFLT = col_character()), trim_ws = TRUE)
- # MOBPRO18<-MOBPRO18%>%mutate(CODGEORES=case_when(ARM!="ZZZZZ"~ARM,
- #                                                 TRUE~COMMUNE))
- # 
  Varmod_MOBPRO_2018 <- read_delim("data/Varmod_MOBPRO_2018.csv", 
                                    ";", escape_double = FALSE, col_types = cols(LONG_VAR = col_skip()),trim_ws = TRUE)
- # colnames(MOBPRO18)
- # MOBPRO18_S<-MOBPRO18%>%select(CODGEORES,DCLT,AGEREVQ,CS1,DIPL,EMPL,IMMI,INATC,IPONDI,NA5,SEXE,STAT,STOCD,TYPL,TYPMR,TRANS)
- # #saveRDS(MOBPRO18_S,"MOBPRO18_S.Rdata")
+
  PhAT <- read_csv("data/Phrases a tweeter - Feuille 1.csv")
   JusteCommunesImportantes<-readRDS("data/VillesSelec.Rdata")
   
  #remet à our
- # MOBPRO18_S_F<-MOBPRO18_S%>%filter(CODGEORES%in%JusteCommunesImportantes$INSEE_COM |
- #                                     DCLT %in% JusteCommunesImportantes$INSEE_COM)
- # 
- # MOBPRO18_S_F<-MOBPRO18_S_F%>%mutate(AGE=case_when(AGEREVQ=="015"~"15 à 19 ans",AGEREVQ=="020"~"20 à 29 ans",AGEREVQ=="025"~"20 à 29 ans",AGEREVQ=="030"~"30 à 39 ans",AGEREVQ=="035"~"30 à 39 ans",AGEREVQ=="040"~"40 à 49 ans",AGEREVQ=="045"~"40 à 49 ans",AGEREVQ=="050"~"50 à 59 ans",AGEREVQ=="055"~"50 à 59 ans",AGEREVQ=="060"~"60 à 69 ans",AGEREVQ=="065"~"60 à 69 ans",AGEREVQ=="070"~"70 et +",AGEREVQ=="075"~"70 et +",AGEREVQ=="080"~"70 et +",AGEREVQ=="085"~"70 et +",AGEREVQ=="090"~"70 et +",AGEREVQ=="095"~"70 et +",AGEREVQ=="100"~"70 et +",AGEREVQ=="105"~"70 et +",AGEREVQ=="110"~"70 et +",AGEREVQ=="115"~"70 et +",
- #                           TRUE~"PB"))%>%
- #   mutate(DIPLOME=case_when(DIPL%in%c("01","02","03","11","12","13","ZZ") ~"1.Parcours inférieur au bac",
- #                            DIPL%in%c("14","15") ~"2.Bac",
- #                            DIPL%in%c("16","17") ~"3.Du BTS à la licence (Bac +2 ou 3)",
- #                            DIPL%in%c("18","19") ~"4.Master ou plus",
- #                            TRUE~"Autre"))%>%
- #   group_by(CODGEORES,DCLT,CS1,DIPLOME,EMPL,IMMI,INATC,NA5,SEXE,STAT,STOCD,TYPL,TYPMR,TRANS,AGE)%>% 
- #   summarise(IPONDI=sum(IPONDI))
- # 
-#saveRDS(MOBPRO18_S_F,"MOBPRO18_S.Rdata")
+
 MOBPRO18_S<-readRDS("data/MOBPRO18_S_IDF.Rdata")
 TouslesLibellesDesVilles <- read_csv("data/TouslesLibellesDesVilles.txt")
 
@@ -61,7 +41,7 @@ Zone20Bornes<-AllComm%>%filter(code==ComSelec)%>%
   st_centroid()%>%
   st_buffer(20000)
 
-PhATL<-PhAT%>%filter(categorie=="ouva_carte")%>%
+PhATL<-PhAT%>%filter(categorie=="ouva_podium")%>%
   slice_sample(.,n=1)%>%
   select(part1,part2)
 
@@ -171,6 +151,7 @@ Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_repl
   "A_LA_VILLE",nomcomm$ALaVille[1]))
 
 
+
 reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 rtweet::post_tweet(status=Phrase2$TextePart1[1],
@@ -226,10 +207,10 @@ invisible(dev.off())
 
 
 Sys.sleep(3)
-reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 rtweet::post_tweet(status=PhATL$part2[1],
-               in_reply_to_status_id = reply_id,media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
+               in_reply_to_status_id = reply_id2,media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
                                                           paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg")))
  print("ok 2eme tweet")
 
@@ -238,9 +219,19 @@ rtweet::post_tweet(status=PhATL$part2[1],
 dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_character(), datetweets = col_character()))
 dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
 
-Sys.sleep(3)
-reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+
+reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 if(nchar(dejaparus_communes$TweetsPublies)>4){
-  rtweet::post_tweet(status=paste0("Pour rappel, Nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id)
+  rtweet::post_tweet(status=paste0("Pour rappel, Nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
 }
+
+
+dejaparus<-dejaparus%>%
+  add_row(codeinsee=as.character(ComSelec),
+          commune=nomcomm$nom[1],
+          datetweets=as.character(Sys.time()),
+          lientweet=paste0("https://twitter.com/humeursdevictor/status/",reply_id),
+          categorietweet="Origine et provenance des actifs")
+
+write_csv(dejaparus,paste0('data/dejaparus.csv'))    
