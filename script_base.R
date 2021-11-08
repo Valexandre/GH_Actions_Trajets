@@ -85,7 +85,7 @@ OuVaTravaillerLaCommune<-MOBPRO18_S%>%filter(CODGEORES==ComSelec)%>%
   
 
 #Poste Premier Tweet
-    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag))
+    rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
     print("ok premier tweet")
       
 UnionsCommunesDep<-Inter_V_Donnees%>%st_transform(crs=2154)%>%
