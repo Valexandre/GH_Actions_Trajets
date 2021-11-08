@@ -205,8 +205,6 @@ agg_png(paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"), width=900, h
 Carte2
 invisible(dev.off())
 
-
-Sys.sleep(3)
 reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 rtweet::post_tweet(status=PhATL$part2[1],
