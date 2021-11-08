@@ -144,11 +144,11 @@ PhATL2<-PhAT%>%filter(categorie=="douvient_podium")%>%
   select(part1,part2)
 
 
-Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_replace(
+Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_replace(str_replace(
   part1,"VILLE1",paste0(GraphDOuVientTravailler$LIB_MOD[1]," ",Virg(GraphDOuVientTravailler$Part[1]),"%")),
   "VILLE2",paste0(GraphDOuVientTravailler$LIB_MOD[2]," ",Virg(GraphDOuVientTravailler$Part[2]),"%")),
   "VILLE3",paste0(GraphDOuVientTravailler$LIB_MOD[3]," ",Virg(GraphDOuVientTravailler$Part[3]),"%")),
-  "A_LA_VILLE",nomcomm$ALaVille[1]))
+  "A_LA_VILLE",nomcomm$ALaVille[1]),"DE_LA_VILLE",nomcomm$DeLaVille[1]))
 
 
 
