@@ -1,4 +1,4 @@
-# Hourly scraping
+# Hourly scraping cron
 name: script_base
 
 # Controls when the action will run.
