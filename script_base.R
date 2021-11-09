@@ -23,8 +23,8 @@ Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
 MOBPRO18_S<-readRDS("data/MOBPRO18_S_IDF.Rdata")
 TouslesLibellesDesVilles <- read_csv("data/TouslesLibellesDesVilles.txt")
-ComSelec<-"95277"
-#ComSelec<-sample(JusteCommunesImportantes$INSEE_COM[substr(JusteCommunesImportantes$INSEE_COM,1,2)%in%c(75,77,78,91:95)],1)
+
+ComSelec<-sample(JusteCommunesImportantes$INSEE_COM[substr(JusteCommunesImportantes$INSEE_COM,1,2)%in%c(75,77,78,91:95)],1)
 CarteArr<-st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson")%>%dplyr::select(code_insee,nom_com,geometry)%>%rename(code=1,nom=2)
 CarteComm<-st_read("https://github.com/gregoiredavid/france-geojson/raw/master/communes-version-simplifiee.geojson")%>%dplyr::select(code,nom,geometry)
 AllComm<-rbind(CarteComm,CarteArr)
@@ -85,8 +85,8 @@ OuVaTravaillerLaCommune<-MOBPRO18_S%>%filter(CODGEORES==ComSelec)%>%
   
 
 #Poste Premier Tweet
- #   rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
- #   print("ok premier tweet")
+   rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
+   print("ok premier tweet")
       
 UnionsCommunesDep<-Inter_V_Donnees%>%st_transform(crs=2154)%>%
       group_by(substr(code,1,2))%>%
@@ -154,7 +154,7 @@ Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_repl
 
 reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-#rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
+rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
 
 Inter_V_DonneesDOuVient<-Inter_V%>%left_join(DOuVientTravailler,by=c("code"="CODGEORES"))
 Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(Part=case_when(is.na(Part)~0,
@@ -206,9 +206,9 @@ invisible(dev.off())
 
 reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-#rtweet::post_tweet(status=PhATL$part2[1],
-#               in_reply_to_status_id = reply_id2,media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
- #                                                         paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+rtweet::post_tweet(status=PhATL$part2[1],
+               in_reply_to_status_id = reply_id2,media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
+                                                         paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
  print("ok 2eme tweet")
 
  
@@ -217,11 +217,11 @@ dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_cha
 dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
 
 
-#reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-#if(nchar(dejaparus_communes$TweetsPublies)>4){
-#  rtweet::post_tweet(status=paste0("Pour rappel, Nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
-#}
+if(nchar(dejaparus_communes$TweetsPublies)>4){
+  rtweet::post_tweet(status=paste0("Pour rappel, Nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
+}
 
 
 dejaparus<-dejaparus%>%
