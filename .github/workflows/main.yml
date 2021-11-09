@@ -1,10 +1,11 @@
-# Hourly scraping cron
+
+# Hourly scraping
 name: script_base
 
 # Controls when the action will run.
 on:
   push:
-    - branches: main
+    branches: main
 
 
 jobs: 
