@@ -207,8 +207,9 @@ invisible(dev.off())
 reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 rtweet::post_tweet(status=PhATL$part2[1],
-               in_reply_to_status_id = reply_id2,media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
-                                                         paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+               in_reply_to_status_id = reply_id2,
+                   media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+                  )
  print("ok 2eme tweet")
 
  
