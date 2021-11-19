@@ -1,10 +1,9 @@
+library(ragg)
 library(tidyverse)
 library(sf)
 library(rtweet)
 library(sysfonts)
-library(showtext)
-font_add_google("Roboto Condensed","garamond")
-showtext.auto()
+
 tweetbot_token <- rtweet::rtweet_bot(
   api_key = Sys.getenv("T_API_KEY"),
   api_secret = Sys.getenv("T_API_SECRET"),
@@ -88,8 +87,8 @@ Phrase<-PhATL%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_replac
 CreationHashTag<-paste0("#",str_remove_all(nomcomm$nom,"[^[:alpha:]]"))
   
 #Poste Premier Tweet
-#rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
-#print("ok premier tweet")
+rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
+print("ok premier tweet")
 
 
 UnionsCommunesDep<-Inter_V_Donnees%>%st_transform(crs=2154)%>%
@@ -124,10 +123,10 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
 
 
-
-ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
+agg_png(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"), width=900, height = 900, res = 144)
 Carte
-dev.off()
+invisible(dev.off())
+
 
 
 DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
@@ -161,9 +160,9 @@ Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_repl
 
 
 
-#reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-#rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
+rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
 
 Inter_V_DonneesDOuVient<-Inter_V%>%left_join(DOuVientTravailler,by=c("code"="CODGEORES"))
 Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(Part=case_when(is.na(Part)~0,
@@ -208,31 +207,30 @@ labs(title=enc2native(paste0("D'où viennent les actifs qui travaillent ",nomcom
        subtitle=enc2native("Part des actifs se rendant au travail dans la commune depuis moins de 20 km"),
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
  
-
-ggsave(filename = paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in", device="jpeg")
+agg_png(paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"), width=900, height = 900, res = 144)
 Carte2
-dev.off()
+invisible(dev.off())
 
-#reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 
-#rtweet::post_tweet(status=PhATL$part2[1],
-#               in_reply_to_status_id = reply_id2,
-#                   media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
-#                  )
+rtweet::post_tweet(status=PhATL$part2[1],
+               in_reply_to_status_id = reply_id2,
+                   media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+                  )
  print("ok 2eme tweet")
 
  
 #On regarde le csv des données si quelque chose a déjà été twitté à propos de cette commune pour le rajouter en suite.
-#dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_character(), datetweets = col_character()))
-#dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
+dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_character(), datetweets = col_character()))
+dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
 
 
-#reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-#if(nchar(dejaparus_communes$TweetsPublies)>4){
-#  rtweet::post_tweet(status=paste0("Pour rappel, nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
-#}
+if(nchar(dejaparus_communes$TweetsPublies)>4){
+  rtweet::post_tweet(status=paste0("Pour rappel, nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
+}
 
 
 dejaparus<-dejaparus%>%
@@ -242,4 +240,4 @@ dejaparus<-dejaparus%>%
           lientweet=paste0("https://twitter.com/humeursdevictor/status/",reply_id),
           categorietweet="Origine et provenance des actifs")
 
-#write_csv(dejaparus,paste0('data/dejaparus.csv'))    
+write_csv(dejaparus,paste0('data/dejaparus.csv'))    
