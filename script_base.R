@@ -89,7 +89,7 @@ CreationHashTag<-paste0("#",str_remove_all(nomcomm$nom,"[^[:alpha:]]"))
 #Poste Premier Tweet
 rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
 print("ok premier tweet")
-      
+
 
 UnionsCommunesDep<-Inter_V_Donnees%>%st_transform(crs=2154)%>%
       group_by(substr(code,1,2))%>%
@@ -119,14 +119,13 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
   labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
-       subtitle="Part des actifs se rendant au travail dans une commune à moins de 20 km",
+       subtitle="Part des actifs se rendant au travail dans une commune à  moins de 20 km",
        caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
 
 ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
 Carte
 dev.off()
 
-
 DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
   group_by(CODGEORES)%>%
   summarise(Act=round(sum(IPONDI),0))%>%
@@ -149,26 +148,34 @@ PhATL2<-PhAT%>%filter(categorie=="douvient_podium")%>%
   slice_sample(.,n=1)%>%
   select(part1,part2)
 
-DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
-  group_by(CODGEORES)%>%
-  summarise(Act=round(sum(IPONDI),0))%>%
-  ungroup()%>%
-  mutate(Part=round(Act/sum(Act)*100,2))
 
-GraphDOuVientTravailler<-DOuVientTravailler%>%
-  top_n(.,n=3,wt = Part)%>%
-  left_join(Varmod_MOBPRO_2018%>%
-              filter(COD_VAR=="COMMUNE")%>%
-              select(COD_MOD,LIB_MOD),by=c("CODGEORES"= "COD_MOD"))%>%
-  mutate(LIB_MOD=case_when(is.na(LIB_MOD) & substr(CODGEORES,1,2)==75~paste0("Paris ",substr(CODGEORES,4,5)),
-                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==69~paste0("Lyon ",substr(CODGEORES,4,5)),
-                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==13~paste0("Marseille ",substr(CODGEORES,4,5)),
-                           TRUE~LIB_MOD))%>%arrange(desc(Part))
+Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_replace(str_replace(
+  part1,"VILLE1",paste0(GraphDOuVientTravailler$LIB_MOD[1]," ",Virg(GraphDOuVientTravailler$Part[1]),"%")),
+  "VILLE2",paste0(GraphDOuVientTravailler$LIB_MOD[2]," ",Virg(GraphDOuVientTravailler$Part[2]),"%")),
+  "VILLE3",paste0(GraphDOuVientTravailler$LIB_MOD[3]," ",Virg(GraphDOuVientTravailler$Part[3]),"%")),
+  "A_LA_VILLE",nomcomm$ALaVille[1]),"DE_LA_VILLE",nomcomm$DeLaVille[1]))
 
-PhATL2<-PhAT%>%filter(categorie=="douvient_podium")%>%
-  slice_sample(.,n=1)%>%
-  select(part1,part2)
 
+
+reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+
+rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
+
+Inter_V_DonneesDOuVient<-Inter_V%>%left_join(DOuVientTravailler,by=c("code"="CODGEORES"))
+Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(Part=case_when(is.na(Part)~0,
+                                                                         TRUE~Part))
+Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(PartD=case_when(Part==0 ~"0%",
+                                                                          Part>0 & Part <= 1~"Entre 0 et 1%",
+                                                                          Part>1 & Part <= 3~"Entre 1 et 3%",
+                                                                          Part>3 & Part <= 5~"Entre 3 et 5%",
+                                                                          Part>5 & Part <= 15~"Entre 5 et 15%",
+                                                                          Part>15~"Plus de 15%"))
+UnionsCommunesDep<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%
+  group_by(substr(code,1,2))%>%
+  summarise()%>%ungroup()%>%rename(code=1)
+
+couleursdouvient<-c("0%"="#FFFFFF","Entre 0 et 1%"="#CFDDE5","Entre 1 et 3%"="#A0BBCC",
+                    "Entre 3 et 5%"="#7199B2","Entre 5 et 15%"="#427799","Plus de 15%"="#135680")
 
 Carte2<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%ggplot()+
   geom_sf(aes(fill=PartD,colour=code==ComSelec))+
@@ -203,6 +210,7 @@ Carte2
 dev.off()
 
 reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+
 
 rtweet::post_tweet(status=PhATL$part2[1],
                in_reply_to_status_id = reply_id2,
