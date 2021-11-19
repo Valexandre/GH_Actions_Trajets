@@ -123,7 +123,7 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
 
 
-ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
+ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in", device="jpeg")
 Carte
 dev.off()
 
@@ -206,7 +206,7 @@ labs(title=enc2native(paste0("D'où viennent les actifs qui travaillent ",nomcom
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
  
 
-ggsave(filename = paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
+ggsave(filename = paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in", device="jpeg")
 Carte2
 dev.off()
 
