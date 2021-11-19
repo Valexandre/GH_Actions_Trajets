@@ -102,25 +102,25 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
   geom_sf_text(data=CarteComm%>%filter(code%in%JusteCommunesImportantes$INSEE_COM)%>%
                  filter(code%in%Inter_V_Donnees$code)%>%
                  group_by(substr(code,1,2))%>%
-                 slice_sample(.,n=1),aes(label=nom),check_overlap = T,size=3*3,
+                 slice_sample(.,n=1),aes(label=nom),check_overlap = T,size=3,
                 family = "Bahnschrift")+theme_void()+
   geom_sf(data=UnionsCommunesDep,fill=NA,colour="#22222280")+
-  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Bahnschrift")+
+  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6,alpha=0.8,family="Bahnschrift")+
   scale_fill_manual("",values=couleurs)+
   scale_colour_manual("",values=c("#22222230","#222222"))+
   theme(legend.position="top",
-        plot.title =element_text(hjust=0,family = "Corbel",size=30),
+        plot.title =element_text(hjust=0,family = "Corbel",size=14),
         plot.title.position =  "plot",
         plot.caption.position =   "plot",
-        plot.subtitle = element_text(hjust=0,family = "Corbel",size=22),
-        plot.caption = element_text(hjust=1,family = "Corbel",size=16),
-        text=element_text(size=28,family = "Corbel"),
-        legend.text = element_text(size=20),
+        plot.subtitle = element_text(hjust=0,family = "Corbel",size=10),
+        plot.caption = element_text(hjust=1,family = "Corbel",size=8),
+        text=element_text(size=14,family = "Corbel"),
+        legend.text = element_text(size=10),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
- labs(title=enc2native(paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?")),
-       subtitle=enc2native("Part des actifs se rendant au travail dans une commune à moins de 20 km"),
-       caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
+  labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
+       subtitle="Part des actifs se rendant au travail dans une commune à moins de 20 km",
+       caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
 
 
 agg_png(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"), width=900, height = 900, res = 144)
@@ -187,25 +187,25 @@ Carte2<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%ggplot()+
                  filter(code%in%Inter_V_DonneesDOuVient$code)%>%
                  group_by(substr(code,1,2))%>%
                  slice_sample(.,n=1),
-               aes(label=nom),check_overlap = T,size=3*3,
+               aes(label=nom),check_overlap = T,size=3,
                family = "Bahnschrift")+theme_void()+
   geom_sf(data=UnionsCommunesDep,fill=NA,colour="#22222280")+
-  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Bahnschrift")+
+  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6,alpha=0.8,family="Bahnschrift")+
   scale_fill_manual("",values=couleursdouvient)+
   scale_colour_manual("",values=c("#22222230","#222222"))+
   theme(legend.position="top",
-        plot.title =element_text(hjust=0,family = "Corbel",size=30),
+        plot.title =element_text(hjust=0,family = "Corbel",size=14),
         plot.title.position =  "plot",
         plot.caption.position =   "plot",
-        plot.subtitle = element_text(hjust=0,family = "Corbel",size=22),
-        plot.caption = element_text(hjust=1,family = "Corbel",size=16),
-        text=element_text(size=28,family = "Corbel"),
-        legend.text = element_text(size=20),
+        plot.subtitle = element_text(hjust=0,family = "Corbel",size=10),
+        plot.caption = element_text(hjust=1,family = "Corbel",size=8),
+        text=element_text(size=14,family = "Corbel"),
+        legend.text = element_text(size=10),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
-labs(title=enc2native(paste0("D'où viennent les actifs qui travaillent ",nomcomm$ALaVille[1],"?")),
-       subtitle=enc2native("Part des actifs se rendant au travail dans la commune depuis moins de 20 km"),
-       caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
+labs(title=paste0("D'où viennent les actifs qui travaillent ",nomcomm$ALaVille[1],"?"),
+       subtitle="Part des actifs se rendant au travail dans la commune depuis moins de 20 km",
+       caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
  
 agg_png(paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"), width=900, height = 900, res = 144)
 Carte2
