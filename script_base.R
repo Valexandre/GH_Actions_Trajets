@@ -2,7 +2,7 @@ library(tidyverse)
 library(sf)
 library(rtweet)
 library(showtext)
-font_add_google("Cormorant Garamond","garamond")
+font_add_google("Roboto Condensed","garamond")
 showtext.auto()
 tweetbot_token <- rtweet::rtweet_bot(
   api_key = Sys.getenv("T_API_KEY"),
