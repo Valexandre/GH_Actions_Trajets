@@ -119,8 +119,9 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
   labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
-       subtitle="Part des actifs se rendant au travail dans une commune à  moins de 20 km",
-       caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
+       subtitle="Part des actifs se rendant au travail dans une commune à moins de 20 km",
+       caption = "Donnés Insee, traitement Victor Alexandre @humeursdevictor")
+
 
 ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
 Carte
@@ -200,7 +201,7 @@ Carte2<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%ggplot()+
         legend.text = element_text(size=20),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
-  labs(title=paste0("D'où viennent les actifs qui travaillent ",nomcomm$ALaVille[1],"?"),
+   labs(title=paste0("D'où viennent les actifs qui travaillent ",nomcomm$ALaVille[1],"?"),
        subtitle="Part des actifs se rendant au travail dans la commune depuis moins de 20 km",
        caption = "Données Insee, traitement Victor Alexandre @humeursdevictor")
 
