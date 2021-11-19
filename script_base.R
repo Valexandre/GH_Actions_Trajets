@@ -126,21 +126,49 @@ ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,hei
 Carte
 dev.off()
 
-Inter_V_DonneesDOuVient<-Inter_V%>%left_join(DOuVientTravailler,by=c("code"="CODGEORES"))
-Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(Part=case_when(is.na(Part)~0,
-                                                                         TRUE~Part))
-Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(PartD=case_when(Part==0 ~"0%",
-                                                                          Part>0 & Part <= 1~"Entre 0 et 1%",
-                                                                          Part>1 & Part <= 3~"Entre 1 et 3%",
-                                                                          Part>3 & Part <= 5~"Entre 3 et 5%",
-                                                                          Part>5 & Part <= 15~"Entre 5 et 15%",
-                                                                          Part>15~"Plus de 15%"))
-UnionsCommunesDep<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%
-  group_by(substr(code,1,2))%>%
-  summarise()%>%ungroup()%>%rename(code=1)
 
-couleursdouvient<-c("0%"="#FFFFFF","Entre 0 et 1%"="#CFDDE5","Entre 1 et 3%"="#A0BBCC",
-                    "Entre 3 et 5%"="#7199B2","Entre 5 et 15%"="#427799","Plus de 15%"="#135680")
+DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
+  group_by(CODGEORES)%>%
+  summarise(Act=round(sum(IPONDI),0))%>%
+  ungroup()%>%
+  mutate(Part=round(Act/sum(Act)*100,2))
+
+
+
+GraphDOuVientTravailler<-DOuVientTravailler%>%
+  top_n(.,n=3,wt = Part)%>%
+  left_join(Varmod_MOBPRO_2018%>%
+              filter(COD_VAR=="COMMUNE")%>%
+              select(COD_MOD,LIB_MOD),by=c("CODGEORES"= "COD_MOD"))%>%
+  mutate(LIB_MOD=case_when(is.na(LIB_MOD) & substr(CODGEORES,1,2)==75~paste0("Paris ",substr(CODGEORES,4,5)),
+                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==69~paste0("Lyon ",substr(CODGEORES,4,5)),
+                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==13~paste0("Marseille ",substr(CODGEORES,4,5)),
+                           TRUE~LIB_MOD))%>%arrange(desc(Part))
+
+PhATL2<-PhAT%>%filter(categorie=="douvient_podium")%>%
+  slice_sample(.,n=1)%>%
+  select(part1,part2)
+
+DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
+  group_by(CODGEORES)%>%
+  summarise(Act=round(sum(IPONDI),0))%>%
+  ungroup()%>%
+  mutate(Part=round(Act/sum(Act)*100,2))
+
+GraphDOuVientTravailler<-DOuVientTravailler%>%
+  top_n(.,n=3,wt = Part)%>%
+  left_join(Varmod_MOBPRO_2018%>%
+              filter(COD_VAR=="COMMUNE")%>%
+              select(COD_MOD,LIB_MOD),by=c("CODGEORES"= "COD_MOD"))%>%
+  mutate(LIB_MOD=case_when(is.na(LIB_MOD) & substr(CODGEORES,1,2)==75~paste0("Paris ",substr(CODGEORES,4,5)),
+                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==69~paste0("Lyon ",substr(CODGEORES,4,5)),
+                           is.na(LIB_MOD) & substr(CODGEORES,1,2)==13~paste0("Marseille ",substr(CODGEORES,4,5)),
+                           TRUE~LIB_MOD))%>%arrange(desc(Part))
+
+PhATL2<-PhAT%>%filter(categorie=="douvient_podium")%>%
+  slice_sample(.,n=1)%>%
+  select(part1,part2)
+
 
 Carte2<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%ggplot()+
   geom_sf(aes(fill=PartD,colour=code==ComSelec))+
