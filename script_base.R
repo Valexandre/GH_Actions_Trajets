@@ -27,7 +27,7 @@ TouslesLibellesDesVilles <- read_csv("data/TouslesLibellesDesVilles.txt")
 
 ComSelec<-sample(JusteCommunesImportantes$INSEE_COM[substr(JusteCommunesImportantes$INSEE_COM,1,2)%in%c(75,77,78,91:95)],1)
 CarteArr<-st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson")%>%dplyr::select(code_insee,nom_com,geometry)%>%rename(code=1,nom=2)
-CarteComm<-st_read("https://github.com/gregoiredavid/france-geojson/raw/master/communes.geojson")%>%dplyr::select(code,nom,geometry)
+CarteComm<-st_read("https://github.com/gregoiredavid/france-geojson/raw/master/communes-version-simplifiee.geojson")%>%dplyr::select(code,nom,geometry)
 AllComm<-rbind(CarteComm,CarteArr)
 Zone20Bornes<-AllComm%>%filter(code==ComSelec)%>%
   st_transform(crs=2154)%>%
