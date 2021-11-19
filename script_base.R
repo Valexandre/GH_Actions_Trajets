@@ -124,7 +124,7 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
 
 
-png(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in", type="cairo", family="garamond")
+png(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in",device = "png", type = "cairo", family = "garamond")
 Carte
 dev.off()
 
