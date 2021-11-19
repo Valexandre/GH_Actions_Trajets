@@ -20,7 +20,8 @@ Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
  PhAT <- read_csv("data/Phrases a tweeter - Feuille 1.csv")
   JusteCommunesImportantes<-readRDS("data/VillesSelec.Rdata")
-  
+ 
+font_files()
  #remet à our
 
 MOBPRO18_S<-readRDS("data/MOBPRO18_S_IDF.Rdata")
@@ -88,8 +89,8 @@ Phrase<-PhATL%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_replac
 CreationHashTag<-paste0("#",str_remove_all(nomcomm$nom,"[^[:alpha:]]"))
   
 #Poste Premier Tweet
-rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
-print("ok premier tweet")
+#rtweet::post_tweet(status = paste0(Phrase$TextePart1," ",CreationHashTag," #DataTaff"))
+#print("ok premier tweet")
 
 
 UnionsCommunesDep<-Inter_V_Donnees%>%st_transform(crs=2154)%>%
