@@ -118,8 +118,8 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
         legend.text = element_text(size=20),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
-  labs(title=paste0("Où va travailler la population active ",nomcomm$DeLaVille[1],"?"),
-       subtitle="Part des actifs se rendant au travail dans une commune à moins de 20 km",
+  labs(title=paste0("O&ugrave;  &#249; &#xF9; va travailler la population active ",nomcomm$DeLaVille[1],"?"),
+       subtitle="Part des actifs se rendant au travail dans une commune &agrave; &#224; &#xE0; moins de 20 km",
        caption = "Donnés Insee, traitement Victor Alexandre @humeursdevictor")
 
 
