@@ -1,13 +1,9 @@
-library(renv)
 library(tidyverse)
 library(sf)
 library(rtweet)
 library(showtext)
 font_add_google("Cormorant Garamond","garamond")
 showtext.auto()
-#renv::init(project = "C:/Users/valexandre/Documents/scripts/automate/projet_voiture/")
-renv::refresh()
-
 tweetbot_token <- rtweet::rtweet_bot(
   api_key = Sys.getenv("T_API_KEY"),
   api_secret = Sys.getenv("T_API_SECRET"),
@@ -15,6 +11,7 @@ tweetbot_token <- rtweet::rtweet_bot(
   access_secret =  Sys.getenv("T_ACCESS_SECRET")
  )
 rtweet::auth_as(tweetbot_token)
+
 Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
 
  Varmod_MOBPRO_2018 <- read_delim("data/Varmod_MOBPRO_2018.csv", 
