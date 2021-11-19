@@ -21,7 +21,6 @@ Virg<-function(x){ as.character( gsub("\\.",",",as.character(x)))}
  PhAT <- read_csv("data/Phrases a tweeter - Feuille 1.csv")
   JusteCommunesImportantes<-readRDS("data/VillesSelec.Rdata")
  
-font_files()
  #remet à our
 
 MOBPRO18_S<-readRDS("data/MOBPRO18_S_IDF.Rdata")
@@ -105,18 +104,18 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
                  filter(code%in%Inter_V_Donnees$code)%>%
                  group_by(substr(code,1,2))%>%
                  slice_sample(.,n=1),aes(label=nom),check_overlap = T,size=3*3,
-                family = "Calibri")+theme_void()+
+                family = "Bahnschrift")+theme_void()+
   geom_sf(data=UnionsCommunesDep,fill=NA,colour="#22222280")+
-  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Calibri")+
+  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Bahnschrift")+
   scale_fill_manual("",values=couleurs)+
   scale_colour_manual("",values=c("#22222230","#222222"))+
   theme(legend.position="top",
-        plot.title =element_text(hjust=0,family = "garamond",size=30),
+        plot.title =element_text(hjust=0,family = "Corbel",size=30),
         plot.title.position =  "plot",
         plot.caption.position =   "plot",
-        plot.subtitle = element_text(hjust=0,family = "garamond",size=22),
-        plot.caption = element_text(hjust=1,family = "garamond",size=16),
-        text=element_text(size=28,family = "garamond"),
+        plot.subtitle = element_text(hjust=0,family = "Corbel",size=22),
+        plot.caption = element_text(hjust=1,family = "Corbel",size=16),
+        text=element_text(size=28,family = "Corbel"),
         legend.text = element_text(size=20),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
@@ -125,9 +124,11 @@ Carte<-Inter_V_Donnees%>%st_transform(crs=2154)%>%ggplot()+
        caption = enc2native("Données Insee, traitement Victor Alexandre @humeursdevictor"))
 
 
-png(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in",device = "png", type = "cairo", family = "garamond")
+
+ggsave(filename = paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),width = 5,height=5,units="in")
 Carte
 dev.off()
+
 
 DOuVientTravailler<-MOBPRO18_S%>%filter(DCLT==ComSelec)%>%
   group_by(CODGEORES)%>%
@@ -160,9 +161,9 @@ Phrase2<-PhATL2%>%mutate(TextePart1=str_replace(str_replace(str_replace(str_repl
 
 
 
-reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+#reply_id <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
+#rtweet::post_tweet(status=Phrase2$TextePart1[1],in_reply_to_status_id = reply_id)
 
 Inter_V_DonneesDOuVient<-Inter_V%>%left_join(DOuVientTravailler,by=c("code"="CODGEORES"))
 Inter_V_DonneesDOuVient<-Inter_V_DonneesDOuVient%>%mutate(Part=case_when(is.na(Part)~0,
@@ -188,18 +189,18 @@ Carte2<-Inter_V_DonneesDOuVient%>%st_transform(crs=2154)%>%ggplot()+
                  group_by(substr(code,1,2))%>%
                  slice_sample(.,n=1),
                aes(label=nom),check_overlap = T,size=3*3,
-               family = "Calibri")+theme_void()+
+               family = "Bahnschrift")+theme_void()+
   geom_sf(data=UnionsCommunesDep,fill=NA,colour="#22222280")+
-  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Calibri")+
+  geom_sf_text(data=UnionsCommunesDep%>%filter(code!=75),aes(label=code),colour="#22222260",size=6*3,alpha=0.8,family="Bahnschrift")+
   scale_fill_manual("",values=couleursdouvient)+
   scale_colour_manual("",values=c("#22222230","#222222"))+
   theme(legend.position="top",
-        plot.title =element_text(hjust=0,family = "garamond",size=30),
+        plot.title =element_text(hjust=0,family = "Corbel",size=30),
         plot.title.position =  "plot",
         plot.caption.position =   "plot",
-        plot.subtitle = element_text(hjust=0,family = "garamond",size=22),
-        plot.caption = element_text(hjust=1,family = "garamond",size=16),
-        text=element_text(size=28,family = "garamond"),
+        plot.subtitle = element_text(hjust=0,family = "Corbel",size=22),
+        plot.caption = element_text(hjust=1,family = "Corbel",size=16),
+        text=element_text(size=28,family = "Corbel"),
         legend.text = element_text(size=20),
         plot.margin = margin(0,0,0,0))+
   guides(fill=guide_legend(nrow=2,byrow=TRUE),colour=F)+
@@ -212,26 +213,26 @@ ggsave(filename = paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"),wid
 Carte2
 dev.off()
 
-reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+#reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
 
-rtweet::post_tweet(status=PhATL$part2[1],
-               in_reply_to_status_id = reply_id2,
-                   media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
-                  )
+#rtweet::post_tweet(status=PhATL$part2[1],
+#               in_reply_to_status_id = reply_id2,
+#                   media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+#                  )
  print("ok 2eme tweet")
 
  
 #On regarde le csv des données si quelque chose a déjà été twitté à propos de cette commune pour le rajouter en suite.
-dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_character(), datetweets = col_character()))
-dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
+#dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_character(), datetweets = col_character()))
+#dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
 
 
-reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+#reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
 
-if(nchar(dejaparus_communes$TweetsPublies)>4){
-  rtweet::post_tweet(status=paste0("Pour rappel, nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
-}
+#if(nchar(dejaparus_communes$TweetsPublies)>4){
+#  rtweet::post_tweet(status=paste0("Pour rappel, nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
+#}
 
 
 dejaparus<-dejaparus%>%
@@ -241,4 +242,4 @@ dejaparus<-dejaparus%>%
           lientweet=paste0("https://twitter.com/humeursdevictor/status/",reply_id),
           categorietweet="Origine et provenance des actifs")
 
-write_csv(dejaparus,paste0('data/dejaparus.csv'))    
+#write_csv(dejaparus,paste0('data/dejaparus.csv'))    
