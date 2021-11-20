@@ -14,7 +14,7 @@ on:
 jobs: 
   autoscrape:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: macos-latest
     env:
       T_API_KEY: ${{ secrets.T_API_KEY }}
       T_API_SECRET: ${{ secrets.T_API_SECRET }}
