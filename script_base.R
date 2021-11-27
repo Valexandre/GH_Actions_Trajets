@@ -226,7 +226,7 @@ dejaparus <- read_csv("data/dejaparus.csv", col_types = cols(codeinsee = col_cha
 dejaparus_communes<-dejaparus%>%filter(codeinsee==ComSelec)%>%summarise(TweetsPublies=paste0(lientweet,collapse = ", "))
 
 
-reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1)$id_str
+reply_id3 <- rtweet::get_timeline("humeursdevictor",n=1,token = tweetbot_token)$id_str
 
 if(nchar(dejaparus_communes$TweetsPublies)>4){
   rtweet::post_tweet(status=paste0("Pour rappel, nous avions déjà parlé ",nomcomm$DeLaVille, " ici : ",dejaparus_communes$TweetsPublies),in_reply_to_status_id = reply_id3)
