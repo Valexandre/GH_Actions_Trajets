@@ -325,6 +325,8 @@ if (jour %in% c(1, 3, 5, 7)) {
     filter(categorie == "trajet_evit_1") %>%
     slice_sample(., n = 1) %>%
     select(part1)
+    MOBPRO18_S <- readRDS("data/MOBPRO18_S_IDF.Rdata")
+  TouslesLibellesDesVilles <- read_csv("data/TouslesLibellesDesVilles.txt")
   GlobalTrav <- MOBPRO18_S %>%
     filter(DCLT == ComSelec) %>%
     group_by(TRANS) %>%
