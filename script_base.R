@@ -350,14 +350,6 @@ if (jour %in% c(1, 3, 5, 7)) {
     mutate(PremierTweet = str_replace_all(PremierTweet, pattern = "A_LA_VILLE", ALaVille))
   PremierTweet <- Phrase1$PremierTweet[1]
 
-  CreationHashTag <- paste0("#", str_remove_all(nomcomm$nom, "[^[:alpha:]]"))
-
-  # Poste Premier Tweet
-  rtweet::post_tweet(status = paste0(PremierTweet, " ", CreationHashTag, " #DataTaff"))
-  print("ok premier tweet")
-
-  ################
-  # number2
   CarteArr <- st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson") %>%
     dplyr::select(code_insee, nom_com, geometry) %>%
     rename(code = 1, nom = 2)
@@ -368,8 +360,16 @@ if (jour %in% c(1, 3, 5, 7)) {
     filter(code == ComSelec) %>%
     st_drop_geometry() %>%
     left_join(TouslesLibellesDesVilles, by = c("code" = "com"))
+  
+  CreationHashTag <- paste0("#", str_remove_all(nomcomm$nom, "[^[:alpha:]]"))
 
+  # Poste Premier Tweet
+  rtweet::post_tweet(status = paste0(PremierTweet, " ", CreationHashTag, " #DataTaff"))
+  print("ok premier tweet")
 
+  ################
+  # number2
+  
   Phrase2 <- PhAT %>%
     filter(categorie == "trajet_evit_2") %>%
     slice_sample(., n = 1) %>%
