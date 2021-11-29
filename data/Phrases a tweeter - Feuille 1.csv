@@ -25,3 +25,22 @@ Selon les données de l'Insee, c'est de...
 3⃣ VILLE3"," 
 Les autres déplacements sont résumés dans cette carte
 ⤵",180
+trajet_evit_1,"1","Sur les NBACTIFSTRAV personnes qui travaillent A_LA_VILLE, NBSANSTRAJ (PARTSANSTRAJ%) n'ont pas de trajet à effectuer, ou le font à pied.","",108
+trajet_evit_1,"2","NBSANSTRAJ personnes, soit PARTSANSTRAJ% des NBACTIFSTRAV actifs DE_LA_VILLE n'ont pas de trajet pour se rendre sur leur lieu de travail, ou le font à pied.","",130
+trajet_evit_2,"1","🚗 PARTACTIFSVOIT% des actifs s'y rendent en voiture ou camion, 
+🚌 PARTACTIFSTEC% en transports en commun,
+🚲 PARTACTIFSVELO% en vélo. ","",134
+trajet_evit_2,"2","🚗 PARTACTIFSVOIT% des actifs prennent une voiture ou un camion pour s'y rendre, 
+🚌 PARTACTIFSTEC% les transports en commun, 
+🚲 PARTACTIFSVELO% prennent un vélo. ","",162
+trajet_evit_3,"1","Or, sur l'ensemble des NBTRAJETSVOITURE trajets effectués en voiture et camion, PARTVOITUREPOSSIBLEAUTRE% sont faits sur des trajets également réalisés en transports en commun ou en vélo.","",187
+trajet_evit_3,"2","Pourtant, PARTVOITUREPOSSIBLEAUTRE% des NBTRAJETSVOITURE trajets effectués en voiture ou camion ont lieu entre deux communes qui sont reliés en transport en commun ou vélo par d'autres actifs.","",192trajet_evit_1,"1","Sur les NBACTIFSTRAV personnes qui travaillent A_LA_VILLE, NBSANSTRAJ (PARTSANSTRAJ%) n'ont pas de trajet à effectuer, ou le font à pied.","",108
+trajet_evit_1,"2","NBSANSTRAJ personnes, soit PARTSANSTRAJ% des NBACTIFSTRAV actifs DE_LA_VILLE n'ont pas de trajet pour se rendre sur leur lieu de travail, ou le font à pied.","",130
+trajet_evit_2,"1","🚗 PARTACTIFSVOIT% des actifs s'y rendent en voiture ou camion, 
+🚌 PARTACTIFSTEC% en transports en commun,
+🚲 PARTACTIFSVELO% en vélo. ","",134
+trajet_evit_2,"2","🚗 PARTACTIFSVOIT% des actifs prennent une voiture ou un camion pour s'y rendre, 
+🚌 PARTACTIFSTEC% les transports en commun, 
+🚲 PARTACTIFSVELO% prennent un vélo. ","",162
+trajet_evit_3,"1","Or, sur l'ensemble des NBTRAJETSVOITURE trajets effectués en voiture et camion, PARTVOITUREPOSSIBLEAUTRE% sont faits sur des trajets également réalisés en transports en commun ou en vélo.","",187
+trajet_evit_3,"2","Pourtant, PARTVOITUREPOSSIBLEAUTRE% des NBTRAJETSVOITURE trajets effectués en voiture ou camion ont lieu entre deux communes qui sont reliés en transport en commun ou vélo par d'autres actifs.","",192
