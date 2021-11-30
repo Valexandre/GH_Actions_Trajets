@@ -347,7 +347,8 @@ if (jour %in% c(1, 3, 5, 7)) {
   )
   Phrase1 <- Phrase1 %>%
     left_join(TouslesLibellesDesVilles, by = c("com" = "com")) %>%
-    mutate(PremierTweet = str_replace_all(PremierTweet, pattern = "A_LA_VILLE", ALaVille))
+    mutate(PremierTweet = str_replace_all(str_replace_all(PremierTweet, pattern = "A_LA_VILLE", ALaVille),
+"DE_LA_VILLE", nomcomm$DeLaVille[1]))
   PremierTweet <- Phrase1$PremierTweet[1]
 
   CarteArr <- st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson") %>%
