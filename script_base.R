@@ -337,6 +337,18 @@ if (jour %in% c(1, 3, 5, 7)) {
   NBSANSTRAJ <- GlobalTrav$Act[GlobalTrav$TRANS == 1] + GlobalTrav$Act[GlobalTrav$TRANS == 2]
   PARTSANSTRAJ <- GlobalTrav$Part[GlobalTrav$TRANS == 1] + GlobalTrav$Part[GlobalTrav$TRANS == 2]
   NBACTIFSTRAV <- sum(GlobalTrav$Act)
+  
+  CarteArr <- st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson") %>%
+    dplyr::select(code_insee, nom_com, geometry) %>%
+    rename(code = 1, nom = 2)
+  CarteComm <- sf::st_read("https://github.com/gregoiredavid/france-geojson/raw/master/communes-version-simplifiee.geojson") %>% dplyr::select(code, nom, geometry)
+  AllComm <- rbind(CarteComm, CarteArr)
+
+  nomcomm <- AllComm %>%
+    filter(code == ComSelec) %>%
+    st_drop_geometry() %>%
+    left_join(TouslesLibellesDesVilles, by = c("code" = "com"))
+  
   Phrase1$com <- ComSelec
   Phrase1$PremierTweet <- str_replace_all(
     str_replace_all(
@@ -351,16 +363,6 @@ if (jour %in% c(1, 3, 5, 7)) {
 "DE_LA_VILLE", nomcomm$DeLaVille[1]))
   PremierTweet <- Phrase1$PremierTweet[1]
 
-  CarteArr <- st_read("https://raw.githubusercontent.com/Valexandre/france-geojson/master/arrondissements-millesimes0.geojson") %>%
-    dplyr::select(code_insee, nom_com, geometry) %>%
-    rename(code = 1, nom = 2)
-  CarteComm <- sf::st_read("https://github.com/gregoiredavid/france-geojson/raw/master/communes-version-simplifiee.geojson") %>% dplyr::select(code, nom, geometry)
-  AllComm <- rbind(CarteComm, CarteArr)
-
-  nomcomm <- AllComm %>%
-    filter(code == ComSelec) %>%
-    st_drop_geometry() %>%
-    left_join(TouslesLibellesDesVilles, by = c("code" = "com"))
   
   CreationHashTag <- paste0("#", str_remove_all(nomcomm$nom, "[^[:alpha:]]"))
 
