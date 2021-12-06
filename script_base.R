@@ -296,7 +296,7 @@ TrajetsOretPr<-function(x){
    fin<-Sys.time()
    
    
-   reply_id2 <- rtweet::get_timeline("humeursdevictor",n=1,token = tweetbot_token)$id_str
+   reply_id2 <- rtweet::get_timeline(user="humeursdevictor",n=1,token = tweetbot_token)$id_str
    rtweet::post_tweet(status=PhATL$part2[1],
                       in_reply_to_status_id = reply_id2,
                       media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
