@@ -481,7 +481,7 @@ TrajetsEvitables<-function(x){
   usethis::ui_done(paste0("fin de publi tweet  trajets évitable"))
 }
 
-
+jour<-1
 if(jour %in%c(1,3,5,7)){
   CommunesPossibles<-sample(JusteCommunesImportantes$INSEE_COM[substr(JusteCommunesImportantes$INSEE_COM, 1, 2) %in% c(75, 77, 78, 91:95) & JusteCommunesImportantes$INSEE_COM %!in% c(dejaparus$codeinsee[dejaparus$categorietweet == "Origine et provenance des actifs
 "],"75056")], 1)
