@@ -3,6 +3,7 @@ library(tidyverse)
 library(sf)
 library(rtweet)
 library(sysfonts)
+library(usethis)
 # On met un commentaire avec des accents é a à
 tweetbot_token <- rtweet::rtweet_bot(
   api_key = Sys.getenv("T_API_KEY"),
