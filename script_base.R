@@ -300,7 +300,8 @@ TrajetsOretPr<-function(x){
    rtweet::post_tweet(status=PhATL$part2[1],
                       in_reply_to_status_id = reply_id2,
                       media = c(paste0("data/CarteActifs",nomcomm$nom[1],".jpg"),
-                                paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg"))
+                                paste0("data/CarteActifsProvenance",nomcomm$nom[1],".jpg")),
+                      alt_text = c("Carte 1","Carte 2")
                       )
    usethis::ui_done(paste0("ok tweet cartes, temps passé entre 2 derniers tweets : ",fin-topdepart))
    
