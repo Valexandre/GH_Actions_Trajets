@@ -3,13 +3,13 @@
 name: script_base
 
 # Controls when the action will run.
-on:
-  schedule:
-    - cron:  '55 6 * * *'
 #on:
-#  push:
-#    branches:
-#      - main
+#  schedule:
+#    - cron:  '55 6 * * *'
+on:
+  push:
+    branches:
+      - main
 
 jobs: 
   autoscrape:
@@ -36,7 +36,7 @@ jobs:
 
     # Run R script
     - name: script_base
-      run: Rscript script_base.R
+      run: Rscript rien.R
       
  # Add new files in data folder, commit along with other modified files, push
     - name: Commit files
