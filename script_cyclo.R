@@ -24,4 +24,4 @@ Donnees<-tibble(quand=c("matin","après-midi"),
                 pluie=c(DonneesVilleU[[2]][[3]],DonneesVilleU[[2]][[15]] ))
 Donnees<-Donnees%>%mutate(tempC=tempk-273.15)
 
-rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 7h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. 🕓 Cet après-midi à 16h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie."))
+rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 7h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. 🕓 Cet après-midi à 16h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie. #MétéoCyclo"))
