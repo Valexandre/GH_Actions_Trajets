@@ -1,11 +1,10 @@
 
 # Hourly scraping
-name: script_base
-
+name: Tweet du matin
 # Controls when the action will run.
 #on:
 #  schedule:
-#    - cron:  '55 6 * * *'
+#    - cron:  '55 5 * * *'
 on:
   push:
     branches:
@@ -30,22 +29,10 @@ jobs:
      # Set-up R
     - name: Install packages
       run: |
-        install.packages(c("ragg", "tidyverse", "sf","sysfonts", "showtext", "remotes", "usethis"),type="binary")
+        install.packages(c("tidyverse","remotes","jsonlite"),type="binary")
         remotes::install_github("ropensci/rtweet")
       shell: Rscript {0}
 
     # Run R script
-    - name: script_base
-      run: Rscript rien.R
-      
- # Add new files in data folder, commit along with other modified files, push
-    - name: Commit files
-      run: |
-        git config --local user.name actions-user
-        git config --local user.email "actions@github.com"
-        git add data/*
-        git commit -am "GH ACTION OK $(date)"
-        git push origin main
-      env:
-        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-        username: github-actions
+    - name: cyclo
+      run: Rscript script_cyclo.R
