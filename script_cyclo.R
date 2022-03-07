@@ -12,7 +12,7 @@ rtweet::auth_as(tweetbot_token)
 URLParis<-"http://www.infoclimat.fr/public-api/gfs/json?_ll=48.85341,2.3488&_auth=CRNeSVMtBiQDLlptBXNXfgBoAzYPeVN0An4AYwBlUy5VPlc2AWFWMFI8VCkBLlBmWHVSMVliVGQHbAF5CHoEZQljXjJTOAZhA2xaPwUqV3wALgNiDy9TdAJgAGMAalMuVTdXNQFjVipSPFQ%2BATVQelhqUjtZZFRzB3sBZwhjBGMJbF4%2FUzkGYANtWj8FPVd8ACwDZQ8yU2kCZABnAGVTOFU0VzcBMFZmUm5UMQE5UHpYaFI1WW9UbAdnAWYIZARlCXVeJVNJBhcDcVp4BXdXNgB1A34PZVM1AjU%3D&_c=8f5a43200f9e580178156325786c4183"
 DonneesVille<-fromJSON(URLParis)
 datefixee<-Sys.Date()
-datefixee<-paste0(substr(datefixee,1,8),str_pad(as.numeric(substr(datefixee,9,10))+1,width = 2,pad = "0"))
+
 matin<-paste0(datefixee," 07:00:00")
 am<-paste0(datefixee," 16:00:00")
 DonneesVilleU<-DonneesVille %>% 
