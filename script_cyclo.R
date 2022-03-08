@@ -21,7 +21,8 @@ DonneesVilleU<-DonneesVille %>%
   unnest
 Donnees<-tibble(quand=c("matin","après-midi"),
                 tempk=c(DonneesVilleU[[2]][[1]][["sol"]],DonneesVilleU[[2]][[13]][["sol"]]),
-                pluie=c(DonneesVilleU[[2]][[3]],DonneesVilleU[[2]][[15]] ))
+                pluie=c(DonneesVilleU[[2]][[3]],DonneesVilleU[[2]][[15]]),
+                vent=c(DonneesVilleU[[2]][[6]][["10m"]], DonneesVilleU[[2]][[18]][["10m"]]))
 Donnees<-Donnees%>%mutate(tempC=tempk-273.15)
 
-rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 7h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. 🕓 Cet après-midi à 16h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie. #MétéoCyclo"))
+rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 7h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. Vent : ",round(Donnees$vent[1],2) ,"km/h. 🕓 Cet après-midi à 16h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie. Vent : ",round(Donnees$vent[2],2) ,"km/h. #MétéoCyclo"))
