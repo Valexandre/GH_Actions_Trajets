@@ -13,8 +13,8 @@ URLParis<-"http://www.infoclimat.fr/public-api/gfs/json?_ll=48.85341,2.3488&_aut
 DonneesVille<-fromJSON(URLParis)
 datefixee<-Sys.Date()
 
-matin<-paste0(datefixee," 07:00:00")
-am<-paste0(datefixee," 16:00:00")
+matin<-paste0(datefixee," 08:00:00")
+am<-paste0(datefixee," 17:00:00")
 DonneesVilleU<-DonneesVille %>% 
   enframe %>%
   filter(name%in%c(matin,am))%>%
@@ -25,4 +25,4 @@ Donnees<-tibble(quand=c("matin","après-midi"),
                 vent=c(DonneesVilleU[[2]][[6]][["10m"]], DonneesVilleU[[2]][[18]][["10m"]]))
 Donnees<-Donnees%>%mutate(tempC=tempk-273.15)
 
-rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 7h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. Vent : ",round(Donnees$vent[1],2) ,"km/h. 🕓 Cet après-midi à 16h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie. Vent : ",round(Donnees$vent[2],2) ,"km/h. #MétéoCyclo"))
+rtweet::post_tweet(token = tweetbot_token, status = paste0("🚲 Bien le bonjour à toi cycliste de Paris. 🕖 Ce matin, température à 8h : ",round(Donnees$tempC[1],2),"°C, et ",round(Donnees$pluie[1],1),"mm de pluie sur 3h. Vent : ",round(Donnees$vent[1],2) ,"km/h. 🕓 Cet après-midi à 17h : ",round(Donnees$tempC[2],2),"°C et ",round(Donnees$pluie[2],1),"mm de pluie. Vent : ",round(Donnees$vent[2],2) ,"km/h. #MétéoCyclo"))
