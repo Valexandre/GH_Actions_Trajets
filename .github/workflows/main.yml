@@ -5,10 +5,9 @@ name: Tweet du matin
 on:
   schedule:
     - cron:  '55 5 * * *'
-#on:
-#  push:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
 
 jobs: 
   autoscrape:
